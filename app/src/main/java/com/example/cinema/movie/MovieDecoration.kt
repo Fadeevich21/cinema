@@ -18,7 +18,7 @@ class MovieDecoration(
         outRect.left = left
         outRect.right = right
 
-        val position: Int = parent.getChildLayoutPosition(view)
+//        val position: Int = parent.getChildLayoutPosition(view)
 //        if (position != 0)
         outRect.top = top
     }

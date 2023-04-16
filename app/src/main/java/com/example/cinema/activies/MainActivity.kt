@@ -1,6 +1,7 @@
 package com.example.cinema.activies
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity(), OnMovieSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val settings = getSharedPreferences("UserInfo", 0)
+        val theme = settings.getInt("theme", AppCompatDelegate.MODE_NIGHT_UNSPECIFIED)
+        AppCompatDelegate.setDefaultNightMode(theme)
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_UNSPECIFIED)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
@@ -92,5 +96,13 @@ class MainActivity : AppCompatActivity(), OnMovieSelectedListener {
     override fun onMovieSelected() {
         val intent = Intent(this, DetailActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val settings: SharedPreferences = getSharedPreferences("UserInfo", 0)
+        val editor = settings.edit()
+        editor.putInt("theme", AppCompatDelegate.getDefaultNightMode())
+        editor.apply()
     }
 }

@@ -16,7 +16,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         savedInstanceState: Bundle?
     ): View {
         val view: View? = super.onCreateView(inflater, container, savedInstanceState)
-
         setupRadioGroup(view!!)
 
         return view
@@ -36,16 +35,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     private fun checkRadioButton(radioGroup: RadioGroup) {
-        when (isNightModeActive()) {
+        when (AppCompatDelegate.getDefaultNightMode()) {
             AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> radioGroup.check(R.id.color_theme_system)
             AppCompatDelegate.MODE_NIGHT_YES -> radioGroup.check(R.id.color_theme_dark)
             AppCompatDelegate.MODE_NIGHT_NO -> radioGroup.check(R.id.color_theme_light)
         }
     }
-
-    private fun isNightModeActive(): Int {
-        return AppCompatDelegate.getDefaultNightMode()
-
-    }
-
 }
