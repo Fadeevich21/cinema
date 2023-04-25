@@ -4,25 +4,31 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import com.example.cinema.OnMovieSelectedListener
+import com.example.cinema.movie.OnMovieSelectedListener
 import com.example.cinema.R
 import com.example.cinema.enums.FragmentTags
 import com.example.cinema.fragments.HomeFragment
+import com.example.cinema.fragments.MoviePostersFragment
 import com.example.cinema.fragments.SettingsFragment
 import com.example.cinema.fragments.ShopFragment
+import com.example.cinema.movie.MovieAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), OnMovieSelectedListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private var activeFragmentTag: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
 
         val settings = getSharedPreferences("UserInfo", 0)
         val theme = settings.getInt("theme", AppCompatDelegate.MODE_NIGHT_UNSPECIFIED)
@@ -37,6 +43,7 @@ class MainActivity : AppCompatActivity(), OnMovieSelectedListener {
                 add<HomeFragment>(R.id.fragment_container, FragmentTags.HOME.tag)
                 add<ShopFragment>(R.id.fragment_container, FragmentTags.SHOP.tag)
                 add<SettingsFragment>(R.id.fragment_container, FragmentTags.SETTINGS.tag)
+                add<MoviePostersFragment>(R.id.fragment_container, FragmentTags.MOVIE_POSTERS.tag)
             }
             supportFragmentManager.executePendingTransactions()
         } else
@@ -53,6 +60,11 @@ class MainActivity : AppCompatActivity(), OnMovieSelectedListener {
             when (it.itemId) {
                 R.id.action_home -> {
                     loadFragment(FragmentTags.HOME.tag)
+                    true
+                }
+
+                R.id.action_movie_posters -> {
+                    loadFragment(FragmentTags.MOVIE_POSTERS.tag)
                     true
                 }
 
@@ -91,11 +103,6 @@ class MainActivity : AppCompatActivity(), OnMovieSelectedListener {
         fragment = supportFragmentManager.findFragmentByTag(activeFragmentTag)
         transaction.attach(fragment!!)
         transaction.commit()
-    }
-
-    override fun onMovieSelected() {
-        val intent = Intent(this, DetailActivity::class.java)
-        startActivity(intent)
     }
 
     override fun onPause() {

@@ -3,12 +3,11 @@ package com.example.cinema.movie
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinema.OnMovieSelectedListener
 import com.example.cinema.R
 
 class MovieViewHolder(itemView: View, onMovieSelectedListener: OnMovieSelectedListener) :
     RecyclerView.ViewHolder(itemView) {
-    var name: TextView = itemView.findViewById(R.id.movie_name)
+    var nameView: TextView = itemView.findViewById(R.id.movie_name)
 
     init {
         setOnClickListener(itemView, onMovieSelectedListener)
@@ -19,8 +18,8 @@ class MovieViewHolder(itemView: View, onMovieSelectedListener: OnMovieSelectedLi
         onMovieSelectedListener: OnMovieSelectedListener
     ) {
         itemView.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION)
-                    onMovieSelectedListener.onMovieSelected()
+            if (adapterPosition != RecyclerView.NO_POSITION)
+                onMovieSelectedListener.onMovieSelected(adapterPosition)
         }
     }
 }
