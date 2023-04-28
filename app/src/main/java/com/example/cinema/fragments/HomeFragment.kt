@@ -1,8 +1,8 @@
 package com.example.cinema.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.movie.OnMovieSelectedListener
 import com.example.cinema.R
 import com.example.cinema.activies.DetailActivity
+import com.example.cinema.activies.DetailTicketActivity
 import com.example.cinema.database.DatabaseManager
 import com.example.cinema.database.entities.MovieEntity
+import com.example.cinema.database.entities.TicketEntity
 import com.example.cinema.movie.MovieAdapter
 import com.example.cinema.movie.MovieDecoration
+import com.example.cinema.ticket.OnTicketSelectedListener
+import com.example.cinema.ticket.TicketAdapter
 import kotlin.concurrent.thread
 
-class HomeFragment : Fragment(), OnMovieSelectedListener {
-    private var movies = mutableListOf<MovieEntity>()
+class HomeFragment : Fragment(), OnTicketSelectedListener {
+    private var tickets = mutableListOf<TicketEntity>()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,15 +35,15 @@ class HomeFragment : Fragment(), OnMovieSelectedListener {
 
         val recyclerView: RecyclerView? = view?.findViewById(R.id.list)
         recyclerView?.layoutManager = LinearLayoutManager(view?.context)
-        val adapter = MovieAdapter(this, movies)
+        val adapter = TicketAdapter(this, tickets)
         recyclerView?.adapter = adapter
 
         thread {
             val databaseManager = DatabaseManager()
-            val movies = databaseManager.getAllMovies()
+            val tickets = databaseManager.getAllTickets()
             requireActivity().runOnUiThread {
-                this.movies.clear()
-                this.movies.addAll(movies)
+                this.tickets.clear()
+                this.tickets.addAll(tickets)
                 adapter.notifyDataSetChanged()
             }
         }
@@ -50,8 +55,8 @@ class HomeFragment : Fragment(), OnMovieSelectedListener {
     }
 
     override fun onMovieSelected(position: Int) {
-        val intent = Intent(requireActivity(), DetailActivity::class.java)
-        intent.putExtra("movie_id", movies[position].id)
+        val intent = Intent(requireActivity(), DetailTicketActivity::class.java)
+        intent.putExtra("movie_id", tickets[position].id)
 
         startActivity(intent)
     }

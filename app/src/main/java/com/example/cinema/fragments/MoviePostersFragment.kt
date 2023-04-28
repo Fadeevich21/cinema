@@ -1,5 +1,6 @@
 package com.example.cinema.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import kotlin.concurrent.thread
 class MoviePostersFragment : Fragment(), OnMoviePosterSelectedListener {
     private var moviePosters = mutableListOf<MovieEntity>()
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
