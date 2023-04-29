@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="10dp"
-    tools:context=".activies.DetailActivity">
+    tools:context=".ui.activies.MoviePosterDetailActivity">
 
     <ImageView
         android:id="@+id/ticket_detail_image"
@@ -56,5 +56,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ticket_detail_duration" />
+
+    <Button
+        android:id="@+id/ticket_detail_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Buy ticket"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ticket_detail_place" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
