@@ -12,8 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
-import com.example.cinema.data.db.AppDatabase
-import com.example.cinema.data.db.entities.TicketEntity
+import com.example.cinema.data.repository.TicketRepositoryImpl
+import com.example.cinema.domain.model.Ticket
+import com.example.cinema.domain.usecase.GetAllTicketsUseCase
 import com.example.cinema.ui.activies.TicketDetailActivity
 import com.example.cinema.ui.adapters.TicketAdapter
 import com.example.cinema.ui.decorations.MovieDecoration
@@ -21,11 +22,12 @@ import com.example.cinema.ui.listeners.OnTicketSelectedListener
 import java.util.Locale
 import kotlin.concurrent.thread
 
-
 class HomeFragment : Fragment(), OnTicketSelectedListener {
-    private var tickets = mutableListOf<TicketEntity>()
+    private var tickets = mutableListOf<Ticket>()
     private lateinit var adapter: TicketAdapter
 
+    private val repository = TicketRepositoryImpl()
+    private val getAllTicketsUseCase = GetAllTicketsUseCase(repository)
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -53,7 +55,7 @@ class HomeFragment : Fragment(), OnTicketSelectedListener {
         recyclerView?.adapter = adapter
 
         thread {
-            val tickets = AppDatabase.ticketsDao.getAllTickets()
+            val tickets = getAllTicketsUseCase.execute()
             requireActivity().runOnUiThread {
                 this.tickets.clear()
                 this.tickets.addAll(tickets)
@@ -76,7 +78,7 @@ class HomeFragment : Fragment(), OnTicketSelectedListener {
 
     private fun filter(text: String) {
         if (tickets.isEmpty()) return
-        val filteredTickets = mutableListOf<TicketEntity>()
+        val filteredTickets = mutableListOf<Ticket>()
         for (ticket in tickets)
             if (ticket.movie.name.lowercase().contains(text.lowercase(Locale.getDefault())))
                 filteredTickets.add(ticket)

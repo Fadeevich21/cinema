@@ -2,7 +2,6 @@ package com.example.cinema.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
-import com.example.cinema.data.db.AppDatabase
-import com.example.cinema.data.db.entities.TicketEntity
+import com.example.cinema.data.repository.TicketRepositoryImpl
+import com.example.cinema.domain.model.Ticket
+import com.example.cinema.domain.usecase.GetTicketsByUserIdUseCase
 import com.example.cinema.ui.adapters.PurchasedTicketAdapter
 import com.example.cinema.ui.decorations.PurchasedTicketDecoration
 import kotlin.concurrent.thread
 
 class ShopFragment : Fragment() {
-    private var purchasedTickets = mutableListOf<TicketEntity>()
+    private var purchasedTickets = mutableListOf<Ticket>()
     private var recyclerView: RecyclerView? = null
+
+    private val repository = TicketRepositoryImpl()
+    private val getTicketsByUserIdUseCase = GetTicketsByUserIdUseCase(repository)
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -38,11 +41,11 @@ class ShopFragment : Fragment() {
         recyclerView?.addItemDecoration(decoration)
 
         thread {
-            val tickets = AppDatabase.usersTicketsDao.getTicketsByUserId(1)
+            val tickets = getTicketsByUserIdUseCase.execute(1)
 
             requireActivity().runOnUiThread {
                 this.purchasedTickets.clear()
-                this.purchasedTickets.addAll(tickets.map { it.ticketId })
+                this.purchasedTickets.addAll(tickets)
                 adapter.notifyDataSetChanged()
             }
         }

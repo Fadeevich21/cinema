@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
-import com.example.cinema.data.db.entities.MovieEntity
-import com.example.cinema.data.db.entities.TicketEntity
+import com.example.cinema.domain.model.MoviePoster
 import com.example.cinema.ui.viewHolders.MoviePostersViewHolder
 import com.example.cinema.ui.listeners.OnMoviePosterSelectedListener
 
 class MoviePostersAdapter(
     private val onMoviePosterSelectedListener: OnMoviePosterSelectedListener,
-    private var moviePosters: MutableList<MovieEntity>
+    private var moviePosters: MutableList<MoviePoster>
 ) : RecyclerView.Adapter<MoviePostersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviePostersViewHolder {
@@ -32,12 +31,12 @@ class MoviePostersAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filterList(filteredMoviePosters: MutableList<MovieEntity>) {
+    fun filterList(filteredMoviePosters: MutableList<MoviePoster>) {
         moviePosters = filteredMoviePosters
         notifyDataSetChanged()
     }
 
-    fun getMoviePosters(): MutableList<MovieEntity> {
+    fun getMoviePosters(): MutableList<MoviePoster> {
         return moviePosters
     }
 }

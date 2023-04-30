@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
 import com.example.cinema.ui.activies.MoviePosterDetailActivity
-import com.example.cinema.data.db.AppDatabase
-import com.example.cinema.data.db.entities.MovieEntity
+import com.example.cinema.data.repository.MoviePosterRepositoryImpl
+import com.example.cinema.domain.model.MoviePoster
+import com.example.cinema.domain.usecase.GetAllMoviePostersUseCase
 import com.example.cinema.ui.adapters.MoviePostersAdapter
 import com.example.cinema.ui.decorations.MoviePostersDecoration
 import com.example.cinema.ui.listeners.OnMoviePosterSelectedListener
@@ -22,8 +23,11 @@ import java.util.Locale
 import kotlin.concurrent.thread
 
 class MoviePostersFragment : Fragment(), OnMoviePosterSelectedListener {
-    private var moviePosters = mutableListOf<MovieEntity>()
+    private var moviePosters = mutableListOf<MoviePoster>()
     private lateinit var adapter: MoviePostersAdapter
+
+    private val moviePosterRepository = MoviePosterRepositoryImpl()
+    private val getAllMoviePostersUseCase = GetAllMoviePostersUseCase(moviePosterRepository)
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -54,7 +58,7 @@ class MoviePostersFragment : Fragment(), OnMoviePosterSelectedListener {
         recyclerView?.addItemDecoration(decoration)
 
         thread {
-            val movies = AppDatabase.moviesDao.getAllMovies()
+            val movies = getAllMoviePostersUseCase.execute()
             requireActivity().runOnUiThread {
                 this.moviePosters.clear()
                 this.moviePosters.addAll(movies)
@@ -74,7 +78,7 @@ class MoviePostersFragment : Fragment(), OnMoviePosterSelectedListener {
 
     private fun filter(text: String) {
         if (moviePosters.isEmpty()) return
-        val filteredMoviePosters = mutableListOf<MovieEntity>()
+        val filteredMoviePosters = mutableListOf<MoviePoster>()
         for (moviePoster in moviePosters)
             if (moviePoster.name.lowercase().contains(text.lowercase(Locale.getDefault())))
                 filteredMoviePosters.add(moviePoster)

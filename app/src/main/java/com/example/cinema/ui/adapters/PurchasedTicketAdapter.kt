@@ -1,20 +1,18 @@
 package com.example.cinema.ui.adapters
 
 import android.content.Context
-import android.os.AsyncTask
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinema.R
 import com.example.cinema.data.db.AppDatabase
-import com.example.cinema.data.db.entities.TicketEntity
+import com.example.cinema.domain.model.Ticket
 import com.example.cinema.ui.activies.MainActivity
-import com.example.cinema.ui.fragments.ShopFragment
 import com.example.cinema.ui.viewHolders.PurchasedTicketViewHolder
 import kotlin.concurrent.thread
 
-class PurchasedTicketAdapter(private var purchasedTickets: MutableList<TicketEntity>) :
+class PurchasedTicketAdapter(private var purchasedTickets: MutableList<Ticket>) :
     RecyclerView.Adapter<PurchasedTicketViewHolder>() {
 
     lateinit var context: Context
