@@ -1,93 +1,64 @@
 package com.example.cinema.ui.fragments
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cinema.R
+import com.example.cinema.databinding.FragmentMoviePostersBinding
 import com.example.cinema.ui.activies.MoviePosterDetailActivity
-import com.example.cinema.data.repository.MoviePosterRepositoryImpl
-import com.example.cinema.domain.model.MoviePoster
-import com.example.cinema.domain.usecase.GetAllMoviePostersUseCase
-import com.example.cinema.ui.adapters.MoviePostersAdapter
+import com.example.cinema.ui.adapters.MoviePosterAdapter
 import com.example.cinema.ui.decorations.MoviePostersDecoration
-import com.example.cinema.ui.listeners.OnMoviePosterSelectedListener
-import java.util.Locale
-import kotlin.concurrent.thread
+import com.example.cinema.ui.viewModel.MoviePostersViewModel
 
-class MoviePostersFragment : Fragment(), OnMoviePosterSelectedListener {
-    private var moviePosters = mutableListOf<MoviePoster>()
-    private lateinit var adapter: MoviePostersAdapter
+class MoviePostersFragment : Fragment(), MoviePosterAdapter.OnItemClickListener {
+    private var _binding: FragmentMoviePostersBinding? = null
+    private val binding get() = _binding!!
 
-    private val moviePosterRepository = MoviePosterRepositoryImpl()
-    private val getAllMoviePostersUseCase = GetAllMoviePostersUseCase(moviePosterRepository)
+    private lateinit var viewModel: MoviePostersViewModel
+    private lateinit var adapter: MoviePosterAdapter
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_movie_posters, container, false)
+        _binding = FragmentMoviePostersBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        val searchView: SearchView? = view?.findViewById(R.id.movie_posters_search)
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.moviePostersSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                filter(newText)
+                viewModel.filter(newText)
                 return false
             }
         })
 
-
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.movie_posters_container)
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
-        adapter = MoviePostersAdapter(this, moviePosters)
-        recyclerView?.adapter = adapter
+        binding.moviePostersContainer.layoutManager = LinearLayoutManager(view.context)
+        adapter = MoviePosterAdapter(this)
+        binding.moviePostersContainer.adapter = adapter
 
         val decoration = MoviePostersDecoration(top = 15, left = 20, right = 20)
-        recyclerView?.addItemDecoration(decoration)
+        binding.moviePostersContainer.addItemDecoration(decoration)
 
-        thread {
-            val movies = getAllMoviePostersUseCase.execute()
-            requireActivity().runOnUiThread {
-                this.moviePosters.clear()
-                this.moviePosters.addAll(movies)
-                adapter.notifyDataSetChanged()
-            }
+        viewModel = ViewModelProvider(this)[MoviePostersViewModel::class.java]
+        viewModel.moviePostersLive.observe(requireActivity()) {
+            adapter.submitList(it)
         }
+        viewModel.getAllMoviePosters()
 
         return view
     }
 
-    override fun onMovieSelected(position: Int) {
+    override fun onMoviePosterClick(id: Int) {
         val intent = Intent(requireActivity(), MoviePosterDetailActivity::class.java)
-        intent.putExtra("movie_id", adapter.getMoviePosters()[position].id)
-
+        intent.putExtra("movie_id", id)
         startActivity(intent)
-    }
-
-    private fun filter(text: String) {
-        if (moviePosters.isEmpty()) return
-        val filteredMoviePosters = mutableListOf<MoviePoster>()
-        for (moviePoster in moviePosters)
-            if (moviePoster.name.lowercase().contains(text.lowercase(Locale.getDefault())))
-                filteredMoviePosters.add(moviePoster)
-
-        adapter.filterList(filteredMoviePosters)
-        if (filteredMoviePosters.isEmpty()) Toast.makeText(
-            activity,
-            "No Data Found..",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 }

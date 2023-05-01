@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/action_home"
         android:icon="@drawable/ic_home"
@@ -8,15 +9,11 @@
     <item
         android:id="@+id/action_movie_posters"
         android:icon="@drawable/ic_movie_posters"
-        android:title="@string/menu_movie_posters"/>
+        android:title="@string/menu_movie_posters" />
 
     <item
         android:id="@+id/action_shop"
         android:icon="@drawable/ic_shop"
         android:title="@string/menu_shop" />
 
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/menu_settings" />
 </menu>

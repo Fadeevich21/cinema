@@ -1,55 +1,53 @@
 package com.example.cinema.ui.fragments
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cinema.R
-import com.example.cinema.data.repository.TicketRepositoryImpl
-import com.example.cinema.domain.model.Ticket
-import com.example.cinema.domain.usecase.GetTicketsByUserIdUseCase
-import com.example.cinema.ui.adapters.PurchasedTicketAdapter
-import com.example.cinema.ui.decorations.PurchasedTicketDecoration
-import kotlin.concurrent.thread
+import com.example.cinema.databinding.FragmentShopBinding
+import com.example.cinema.ui.activies.TicketDetailActivity
+import com.example.cinema.ui.adapters.TicketAdapter
+import com.example.cinema.ui.decorations.TicketDecoration
+import com.example.cinema.ui.viewModel.ShopViewModel
 
-class ShopFragment : Fragment() {
-    private var purchasedTickets = mutableListOf<Ticket>()
-    private var recyclerView: RecyclerView? = null
+class ShopFragment : Fragment(), TicketAdapter.OnItemClickListener {
+    private var _binding: FragmentShopBinding? = null
+    private val binding get() = _binding!!
 
-    private val repository = TicketRepositoryImpl()
-    private val getTicketsByUserIdUseCase = GetTicketsByUserIdUseCase(repository)
+    private lateinit var viewModel: ShopViewModel
+    private lateinit var adapter: TicketAdapter
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View? = inflater.inflate(R.layout.fragment_shop, container, false)
+        _binding = FragmentShopBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        recyclerView = view?.findViewById(R.id.purchased_tickets_container)
-        recyclerView?.layoutManager = LinearLayoutManager(view?.context)
+        binding.purchasedTicketsContainer.layoutManager = LinearLayoutManager(view.context)
+        adapter = TicketAdapter(this)
+        binding.purchasedTicketsContainer.adapter = adapter
 
-        val adapter = PurchasedTicketAdapter(purchasedTickets)
-        recyclerView?.adapter = adapter
+        val decoration = TicketDecoration(top = 15, left = 20, right = 20)
+        binding.purchasedTicketsContainer.addItemDecoration(decoration)
 
-        val decoration = PurchasedTicketDecoration(top = 15, left = 20, right = 20)
-        recyclerView?.addItemDecoration(decoration)
-
-        thread {
-            val tickets = getTicketsByUserIdUseCase.execute(1)
-
-            requireActivity().runOnUiThread {
-                this.purchasedTickets.clear()
-                this.purchasedTickets.addAll(tickets)
-                adapter.notifyDataSetChanged()
-            }
+        viewModel = ViewModelProvider(this)[ShopViewModel::class.java]
+        viewModel.ticketsLive.observe(requireActivity()) {
+            adapter.submitList(it)
         }
+        viewModel.getTicketsByUserId(1)
 
         return view
+    }
+
+    override fun onTicketClick(id: Int) {
+        val intent = Intent(requireActivity(), TicketDetailActivity::class.java)
+        intent.putExtra("ticket_id", id)
+        startActivity(intent)
     }
 }

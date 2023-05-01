@@ -2,30 +2,28 @@ package com.example.cinema.ui.activies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import com.example.cinema.R
-import com.example.cinema.data.db.AppDatabase
-import kotlin.concurrent.thread
+import androidx.lifecycle.ViewModelProvider
+import com.example.cinema.databinding.ActivityDetailMoviePosterBinding
+import com.example.cinema.ui.viewModel.MoviePosterDetailViewModel
 
 class MoviePosterDetailActivity : AppCompatActivity() {
-    var id: Int = -1
+
+    private lateinit var binding: ActivityDetailMoviePosterBinding
+    private lateinit var viewModel: MoviePosterDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
-        val nameView = findViewById<TextView>(R.id.movie_detail_name)
-        val descriptionView = findViewById<TextView>(R.id.movie_detail_description)
-        val durationView = findViewById<TextView>(R.id.movie_detail_duration)
+        binding = ActivityDetailMoviePosterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        id = intent.getIntExtra("movie_id", -1)
-        thread {
-            val movie = AppDatabase.moviesDao.getMovieById(id)
-            runOnUiThread {
-                nameView.text = movie.name
-                descriptionView.text = movie.description
-                durationView.text = movie.duration
-            }
+        viewModel = ViewModelProvider(this)[MoviePosterDetailViewModel::class.java]
+        viewModel.moviePosterLive.observe(this) {
+            binding.movieDetailName.text = it.name
+            binding.movieDetailDescription.text = it.description
+            binding.movieDetailDuration.text = it.duration
         }
+        viewModel.uiState.value.moviePosterId = intent.getIntExtra("movie_id", -1)
+        viewModel.getMoviePosterById(viewModel.uiState.value.moviePosterId)
     }
 }

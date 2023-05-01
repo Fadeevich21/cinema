@@ -1,42 +1,45 @@
 package com.example.cinema.ui.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinema.R
+import com.example.cinema.databinding.ItemTicketBinding
 import com.example.cinema.domain.model.Ticket
-import com.example.cinema.ui.viewHolders.TicketViewHolder
-import com.example.cinema.ui.listeners.OnTicketSelectedListener
 
-class TicketAdapter(
-    private val onTicketSelectedListener: OnTicketSelectedListener,
-    private var tickets: MutableList<Ticket>
-) : RecyclerView.Adapter<TicketViewHolder>() {
+class TicketAdapter(private val clickListener: OnItemClickListener) :
+    ListAdapter<Ticket, TicketAdapter.TicketViewHolder>(TicketComparator()) {
+
+    interface OnItemClickListener {
+        fun onTicketClick(id: Int)
+    }
+
+    inner class TicketViewHolder(private val binding: ItemTicketBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(ticket: Ticket) = with(binding) {
+            ticketName.text = ticket.movie.name
+            root.setOnClickListener { clickListener.onTicketClick(ticket.id) }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TicketViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
         return TicketViewHolder(
-            layoutInflater.inflate(R.layout.item_ticket, parent, false),
-            onTicketSelectedListener
+            ItemTicketBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    override fun getItemCount(): Int {
-        return tickets.size
-    }
-
     override fun onBindViewHolder(holder: TicketViewHolder, position: Int) {
-        holder.nameView.text = tickets[position].movie.name
+        holder.bind(getItem(position))
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun filterList(filteredTickets: MutableList<Ticket>) {
-        tickets = filteredTickets
-        notifyDataSetChanged()
-    }
+    class TicketComparator : DiffUtil.ItemCallback<Ticket>() {
+        override fun areItemsTheSame(oldItem: Ticket, newItem: Ticket): Boolean {
+            return oldItem == newItem
+        }
 
-    fun getTickets(): MutableList<Ticket> {
-        return tickets
+        override fun areContentsTheSame(oldItem: Ticket, newItem: Ticket): Boolean {
+            return oldItem == newItem
+        }
     }
 }
