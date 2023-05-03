@@ -13,12 +13,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/action_movie_posters"
-        android:name="com.example.cinema.ui.fragments.MoviePostersFragment"
-        android:label="Movie posters"
-        tools:layout="@layout/fragment_movie_posters"/>
-
-    <fragment
         android:id="@+id/action_shop"
         android:name="com.example.cinema.ui.fragments.ShopFragment"
         android:label="Shop"

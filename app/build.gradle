@@ -61,4 +61,11 @@ dependencies {
     // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    // koin
+    def koin_version = "3.4.0"
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    // testing
+    implementation "io.insert-koin:koin-test:$koin_version"
 }

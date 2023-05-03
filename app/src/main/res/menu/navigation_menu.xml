@@ -7,11 +7,6 @@
         android:title="@string/menu_home" />
 
     <item
-        android:id="@+id/action_movie_posters"
-        android:icon="@drawable/ic_movie_posters"
-        android:title="@string/menu_movie_posters" />
-
-    <item
         android:id="@+id/action_shop"
         android:icon="@drawable/ic_shop"
         android:title="@string/menu_shop" />
