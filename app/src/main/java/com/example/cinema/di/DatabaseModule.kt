@@ -21,8 +21,10 @@ val databaseModule = module {
             genresDao = get(),
             usersDao = get(),
             rolesDao = get(),
+            privilegesDao = get(),
             moviesGenresDao = get(),
-            usersMoviesDao = get()
+            usersMoviesDao = get(),
+            rolesPrivilegesDao = get()
         )
     }
 }

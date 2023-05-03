@@ -5,6 +5,8 @@ data class Daos(
     val genresDao: GenresDao,
     val rolesDao: RolesDao,
     val usersDao: UsersDao,
+    val privilegesDao: PrivilegeDao,
     val moviesGenresDao: MoviesGenresDao,
-    val usersMoviesDao: UsersMoviesDao
+    val usersMoviesDao: UsersMoviesDao,
+    val rolesPrivilegesDao: RolesPrivilegesDao
 )

@@ -2,6 +2,7 @@ package com.example.cinema.data.db.daos
 
 import com.example.cinema.data.db.entities.GenreEntity
 import com.example.cinema.data.db.tables.MoviesGenresTable
+import com.example.cinema.data.db.utils.Dao
 import org.ktorm.database.Database
 import org.ktorm.dsl.eq
 import org.ktorm.entity.filter

@@ -1,4 +1,4 @@
-package com.example.cinema.data.db.daos
+package com.example.cinema.data.db.utils
 
 import org.ktorm.database.Database
 

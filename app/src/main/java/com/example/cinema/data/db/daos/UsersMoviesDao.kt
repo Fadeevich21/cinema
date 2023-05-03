@@ -4,6 +4,7 @@ import com.example.cinema.data.db.entities.MovieEntity
 import com.example.cinema.data.db.entities.UserEntity
 import com.example.cinema.data.db.entities.UserMovieEntity
 import com.example.cinema.data.db.tables.UsersMoviesTable
+import com.example.cinema.data.db.utils.Dao
 import org.ktorm.database.Database
 import org.ktorm.dsl.eq
 import org.ktorm.entity.add
