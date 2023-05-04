@@ -1,4 +1,4 @@
-package com.example.cinema.ui.activies
+package com.example.cinema.ui.activies.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cinema.App
 import com.example.cinema.databinding.ActivityLoginBinding
-import com.example.cinema.ui.viewModel.LoginViewModel
+import com.example.cinema.ui.activies.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

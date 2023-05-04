@@ -14,4 +14,5 @@ object MoviesTable : Table<MovieEntity>("movies") {
     val yearOfRelease = int("year_of_release").bindTo { it.yearOfRelease }
     val ageRestriction = int("age_restriction").bindTo { it.ageRestriction }
     val trailerUrl = text("trailer_url").bindTo { it.trailerUrl }
+    val contentUrl = text("content_url").bindTo { it.contentUrl }
 }

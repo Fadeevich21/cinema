@@ -1,4 +1,4 @@
-package com.example.cinema.ui.fragments
+package com.example.cinema.ui.fragments.shop
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.App
 import com.example.cinema.databinding.FragmentShopBinding
-import com.example.cinema.ui.activies.MovieDetailActivity
+import com.example.cinema.ui.activies.movieDetail.MovieDetailActivity
 import com.example.cinema.ui.adapters.MovieAdapter
 import com.example.cinema.ui.decorations.MovieDecoration
-import com.example.cinema.ui.viewModel.ShopViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ShopFragment : Fragment(), MovieAdapter.OnItemClickListener {

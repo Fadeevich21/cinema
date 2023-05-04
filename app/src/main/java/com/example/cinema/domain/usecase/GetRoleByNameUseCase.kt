@@ -5,7 +5,7 @@ import com.example.cinema.domain.repository.RoleRepository
 
 class GetRoleByNameUseCase(private val repository: RoleRepository) {
 
-    fun execute(name: String): Role {
+    fun execute(name: String): Role? {
         return repository.getRoleByName(name)
     }
 }

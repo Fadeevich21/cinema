@@ -12,4 +12,7 @@ interface MovieRepository {
     fun buyMovie(user: User, movie: Movie): Boolean
     fun getBoughtMoviesByUser(user: User): List<Movie>
     fun checkBoughtMovieByUser(user: User, movie: Movie): Boolean
+
+    fun addMovie(movie: Movie): Boolean
+    fun deleteMovie(movie: Movie): Boolean
 }

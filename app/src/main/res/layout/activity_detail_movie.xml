@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="20dp"
-    tools:context=".ui.activies.MovieDetailActivity">
+    tools:context=".ui.activies.movieDetail.MovieDetailActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_movie_detail_image"
@@ -105,5 +105,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movie_detail_trailer" />
+
+    <Button
+        android:id="@+id/movie_detail_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Смотреть"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_detail_buy" />
+
+    <Button
+        android:id="@+id/movie_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Удалить"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_detail_show" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

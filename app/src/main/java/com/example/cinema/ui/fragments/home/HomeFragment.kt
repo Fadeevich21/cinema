@@ -1,4 +1,4 @@
-package com.example.cinema.ui.fragments
+package com.example.cinema.ui.fragments.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cinema.App
 import com.example.cinema.databinding.FragmentHomeBinding
-import com.example.cinema.ui.activies.MovieDetailActivity
+import com.example.cinema.ui.activies.addMovie.AddMovieActivity
+import com.example.cinema.ui.activies.movieDetail.MovieDetailActivity
 import com.example.cinema.ui.adapters.MovieAdapter
 import com.example.cinema.ui.decorations.MovieDecoration
-import com.example.cinema.ui.viewModel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
@@ -41,6 +42,11 @@ class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
             }
         })
 
+        binding.movieAdd.setOnClickListener {
+            val intent = Intent(requireActivity(), AddMovieActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.moviesContainer.layoutManager = LinearLayoutManager(view.context)
         adapter = MovieAdapter(this)
         binding.moviesContainer.adapter = adapter
@@ -51,9 +57,21 @@ class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
         viewModel.moviesLive.observe(requireActivity()) {
             adapter.submitList(it)
         }
-        viewModel.getAllMovies()
+
+        viewModel.canAddMovieLive.observe(requireActivity()) {
+            if (viewModel.canAddMovieLive.value == true)
+                binding.movieAdd.visibility = View.VISIBLE
+            else
+                binding.movieAdd.visibility = View.GONE
+        }
+        viewModel.checkUserCanAddMovie(user = App.user!!)
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getAllMovies()
     }
 
     override fun onMoviePosterClick(id: Int) {

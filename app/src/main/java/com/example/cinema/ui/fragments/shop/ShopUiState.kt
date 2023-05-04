@@ -1,7 +1,7 @@
-package com.example.cinema.ui.uiState
+package com.example.cinema.ui.fragments.shop
 
 import com.example.cinema.domain.model.Movie
 
-data class HomeUiState(
+data class ShopUiState(
     var movies: List<Movie> = listOf()
 )

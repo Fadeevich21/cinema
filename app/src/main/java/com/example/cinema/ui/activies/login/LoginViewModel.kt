@@ -1,4 +1,4 @@
-package com.example.cinema.ui.viewModel
+package com.example.cinema.ui.activies.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

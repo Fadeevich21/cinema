@@ -16,7 +16,10 @@
         android:theme="@style/Theme.Cinema"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activies.LoginActivity"
+            android:name=".ui.activies.addMovie.AddMovieActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activies.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.Cinema">
@@ -27,12 +30,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activies.MovieDetailActivity"
+            android:name=".ui.activies.movieDetail.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activies.MainActivity"
-            android:exported="false">
-        </activity>
+            android:name=".ui.activies.main.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

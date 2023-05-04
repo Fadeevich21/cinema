@@ -14,19 +14,21 @@ class MovieMapper : EntityMapper<MovieEntity, Movie> {
             duration = entity.duration,
             yearOfRelease = entity.yearOfRelease,
             ageRestriction = entity.ageRestriction,
-            trailerUrl = entity.trailerUrl
+            trailerUrl = entity.trailerUrl,
+            contentUrl = entity.contentUrl
         )
     }
 
     override fun mapToEntity(domainModel: Movie): MovieEntity {
         return MovieEntity {
-            id = domainModel.id
+            id = domainModel.id!!
             name = domainModel.name
             description = domainModel.description
             duration = domainModel.duration
             yearOfRelease = domainModel.yearOfRelease
             ageRestriction = domainModel.ageRestriction
             trailerUrl = domainModel.trailerUrl
+            contentUrl = domainModel.contentUrl
         }
     }
 }

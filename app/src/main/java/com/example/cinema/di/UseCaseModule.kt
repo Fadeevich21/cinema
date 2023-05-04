@@ -1,12 +1,16 @@
 package com.example.cinema.di
 
+import com.example.cinema.domain.usecase.AddMovieUseCase
 import com.example.cinema.domain.usecase.BuyMovieUseCase
 import com.example.cinema.domain.usecase.CheckBoughtMovieByUserUseCase
+import com.example.cinema.domain.usecase.CheckUserHasPrivilegeUseCase
+import com.example.cinema.domain.usecase.DeleteMovieUseCase
 import com.example.cinema.domain.usecase.FilterMoviesByNameUseCase
 import com.example.cinema.domain.usecase.GetAllMoviesUseCase
 import com.example.cinema.domain.usecase.GetBoughtMoviesByUserUseCase
 import com.example.cinema.domain.usecase.GetGenresByMovieIdUseCase
 import com.example.cinema.domain.usecase.GetMovieByIdUseCase
+import com.example.cinema.domain.usecase.GetPrivilegeByNameUseCase
 import com.example.cinema.domain.usecase.GetRoleByNameUseCase
 import com.example.cinema.domain.usecase.LoginUserUseCase
 import com.example.cinema.domain.usecase.RegisterUserUseCase
@@ -52,5 +56,21 @@ val useCaseModule = module {
 
     factory<RegisterUserUseCase> {
         RegisterUserUseCase(repository = get())
+    }
+
+    factory<CheckUserHasPrivilegeUseCase> {
+        CheckUserHasPrivilegeUseCase(repository = get())
+    }
+
+    factory<GetPrivilegeByNameUseCase> {
+        GetPrivilegeByNameUseCase(repository = get())
+    }
+
+    factory<AddMovieUseCase> {
+        AddMovieUseCase(repository = get())
+    }
+
+    factory<DeleteMovieUseCase> {
+        DeleteMovieUseCase(repository = get())
     }
 }

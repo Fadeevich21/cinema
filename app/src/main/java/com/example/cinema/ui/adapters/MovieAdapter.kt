@@ -20,7 +20,7 @@ class MovieAdapter(private val clickListener: OnItemClickListener) :
 
         fun bind(movie: Movie) = with(binding) {
             movieName.text = movie.name
-            root.setOnClickListener { clickListener.onMoviePosterClick(movie.id) }
+            root.setOnClickListener { clickListener.onMoviePosterClick(movie.id!!) }
         }
     }
 

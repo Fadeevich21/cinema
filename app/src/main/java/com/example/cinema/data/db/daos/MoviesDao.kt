@@ -5,7 +5,9 @@ import com.example.cinema.data.db.tables.MoviesTable
 import com.example.cinema.data.db.utils.Dao
 import org.ktorm.database.Database
 import org.ktorm.dsl.eq
+import org.ktorm.entity.add
 import org.ktorm.entity.find
+import org.ktorm.entity.removeIf
 import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 
@@ -18,5 +20,19 @@ class MoviesDao(database: Database) : Dao(database) {
 
     fun getMovieById(id: Int): MovieEntity {
         return movies.find { it.id eq id }!!
+    }
+
+    fun getCountMovies(): Int {
+        return movies.totalRecords
+    }
+
+    fun addMovie(movie: MovieEntity): Boolean {
+        movies.add(movie)
+        return true
+    }
+
+    fun deleteMovie(movie: MovieEntity): Boolean {
+        movies.removeIf { it.id eq movie.id }
+        return true
     }
 }

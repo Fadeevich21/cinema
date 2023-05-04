@@ -13,4 +13,5 @@ interface MovieEntity : Entity<MovieEntity> {
     var yearOfRelease: Int
     var ageRestriction: Int
     var trailerUrl: String?
+    var contentUrl: String
 }

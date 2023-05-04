@@ -54,4 +54,16 @@ class MovieRepositoryImpl(
             movie = movieEntity
         )
     }
+
+    override fun addMovie(movie: Movie): Boolean {
+        if (movie.id == null)
+            movie.id = AppDatabase.daos.moviesDao.getCountMovies() + 1
+        val movieEntity = movieMapper.mapToEntity(movie)
+        return AppDatabase.daos.moviesDao.addMovie(movie = movieEntity)
+    }
+
+    override fun deleteMovie(movie: Movie): Boolean {
+        val movieEntity = movieMapper.mapToEntity(movie)
+        return AppDatabase.daos.moviesDao.deleteMovie(movie = movieEntity)
+    }
 }
