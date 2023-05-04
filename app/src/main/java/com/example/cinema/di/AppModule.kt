@@ -1,6 +1,7 @@
 package com.example.cinema.di
 
 import com.example.cinema.ui.viewModel.HomeViewModel
+import com.example.cinema.ui.viewModel.LoginViewModel
 import com.example.cinema.ui.viewModel.MovieDetailViewModel
 import com.example.cinema.ui.viewModel.ShopViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,6 +20,13 @@ val appModule = module {
         ShopViewModel(
             getAllMoviesUseCase = get(),
             getBoughtMoviesByUserUseCase = get()
+        )
+    }
+
+    viewModel<LoginViewModel> {
+        LoginViewModel(
+            loginUserUseCase = get(),
+            registerUserUseCase = get()
         )
     }
 

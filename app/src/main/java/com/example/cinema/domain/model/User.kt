@@ -2,9 +2,7 @@ package com.example.cinema.domain.model
 
 
 data class User(
-    val id: Int,
-    var name: String,
-    var login: String,
+    var username: String,
     var password: String,
-    val role: Role
+    var role: Role
 )

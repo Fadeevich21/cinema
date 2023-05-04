@@ -7,9 +7,7 @@ import org.ktorm.schema.text
 
 object UsersTable : Table<UserEntity>("users") {
 
-    val id = int("user_id").primaryKey().bindTo { it.id }
-    val name = text("name").bindTo { it.name }
-    val login = text("login").bindTo { it.login }
+    val username = text("username").primaryKey().bindTo { it.username }
     val password = text("password").bindTo { it.password }
     val roleId = int("role_id").references(RolesTable) { it.roleId }
 }

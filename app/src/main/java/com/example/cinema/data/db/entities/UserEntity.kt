@@ -6,10 +6,7 @@ interface UserEntity : Entity<UserEntity> {
 
     companion object : Entity.Factory<UserEntity>()
 
-    // TODO: сделать login первичным ключом. Тогда несколько пользователей не смогут быть с одним логином, но могут быть с одним паролем
-    var id: Int
-    var name: String
-    var login: String
+    var username: String
     var password: String
     var roleId: RoleEntity
 }

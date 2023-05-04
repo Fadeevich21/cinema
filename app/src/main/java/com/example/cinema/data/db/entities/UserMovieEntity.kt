@@ -7,6 +7,6 @@ interface UserMovieEntity : Entity<UserMovieEntity> {
     companion object: Entity.Factory<UserMovieEntity>()
 
     var id: Int
-    var userId: UserEntity
+    var username: UserEntity
     var movieId: MovieEntity
 }

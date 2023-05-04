@@ -38,7 +38,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         viewModel.movieLive.observe(this) { movie ->
             // TODO: это костыль! Заменить
-            viewModel.checkBoughtMovieByUser(user = App.user, movie = viewModel.movieLive.value as Movie)
+            viewModel.checkBoughtMovieByUser(user = App.user!!, movie = viewModel.movieLive.value as Movie)
 
             binding.movieDetailName.text = movie.name
             binding.movieDetailDescription.text = movie.description
@@ -51,7 +51,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             binding.movieDetailBuy.setOnClickListener {
-                viewModel.buyMovie(user = App.user, movie = viewModel.movieLive.value as Movie)
+                viewModel.buyMovie(user = App.user!!, movie = viewModel.movieLive.value as Movie)
             }
         }
 

@@ -40,7 +40,7 @@ class ShopFragment : Fragment(), MovieAdapter.OnItemClickListener {
         viewModel.moviesLive.observe(requireActivity()) {
             adapter.submitList(it)
         }
-        viewModel.getBoughtMoviesByUser(App.user)
+        viewModel.getBoughtMoviesByUser(App.user!!)
 
         return view
     }

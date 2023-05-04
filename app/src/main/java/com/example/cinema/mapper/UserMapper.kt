@@ -8,9 +8,7 @@ class UserMapper(private val roleMapper: RoleMapper) : EntityMapper<UserEntity, 
 
     override fun mapFromEntity(entity: UserEntity): User {
         return User(
-            id = entity.id,
-            name = entity.name,
-            login = entity.login,
+            username = entity.username,
             password = entity.password,
             role = roleMapper.mapFromEntity(entity.roleId)
         )
@@ -18,9 +16,7 @@ class UserMapper(private val roleMapper: RoleMapper) : EntityMapper<UserEntity, 
 
     override fun mapToEntity(domainModel: User): UserEntity {
         return UserEntity {
-            id = domainModel.id
-            name = domainModel.name
-            login = domainModel.login
+            username = domainModel.username
             password = domainModel.password
             roleId = roleMapper.mapToEntity(domainModel.role)
         }

@@ -6,6 +6,7 @@ import com.example.cinema.data.db.entities.UserMovieEntity
 import com.example.cinema.data.db.tables.UsersMoviesTable
 import com.example.cinema.data.db.utils.Dao
 import org.ktorm.database.Database
+import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
 import org.ktorm.entity.add
 import org.ktorm.entity.any
@@ -24,7 +25,7 @@ class UsersMoviesDao(database: Database) : Dao(database = database) {
     fun addRecord(user: UserEntity, movie: MovieEntity): Boolean {
         val userMovie = UserMovieEntity {
             id = getCountRecords()
-            userId = user
+            username = user
             movieId = movie
         }
         usersMovies.add(userMovie)
@@ -34,13 +35,10 @@ class UsersMoviesDao(database: Database) : Dao(database = database) {
     }
 
     fun getMoviesByUser(user: UserEntity): List<MovieEntity> {
-        return usersMovies.filter { it.userId eq user.id }.toList().map { it.movieId }
+        return usersMovies.filter { it.username eq user.username }.toList().map { it.movieId }
     }
 
     fun checkMovieByUser(user: UserEntity, movie: MovieEntity): Boolean {
-        return usersMovies.any {
-            it.userId eq user.id
-            it.movieId eq movie.id
-        }
+        return usersMovies.any { (it.username eq user.username) and (it.movieId eq movie.id) }
     }
 }

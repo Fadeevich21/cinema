@@ -7,6 +7,9 @@ import com.example.cinema.domain.usecase.GetAllMoviesUseCase
 import com.example.cinema.domain.usecase.GetBoughtMoviesByUserUseCase
 import com.example.cinema.domain.usecase.GetGenresByMovieIdUseCase
 import com.example.cinema.domain.usecase.GetMovieByIdUseCase
+import com.example.cinema.domain.usecase.GetRoleByNameUseCase
+import com.example.cinema.domain.usecase.LoginUserUseCase
+import com.example.cinema.domain.usecase.RegisterUserUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -37,5 +40,17 @@ val useCaseModule = module {
 
     factory<CheckBoughtMovieByUserUseCase> {
         CheckBoughtMovieByUserUseCase(repository = get())
+    }
+
+    factory<GetRoleByNameUseCase> {
+        GetRoleByNameUseCase(repository = get())
+    }
+
+    factory<LoginUserUseCase> {
+        LoginUserUseCase(repository = get())
+    }
+
+    factory<RegisterUserUseCase> {
+        RegisterUserUseCase(repository = get())
     }
 }
