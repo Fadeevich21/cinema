@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_shop"
         android:title="@string/menu_shop" />
 
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/menu_settings" />
+
 </menu>

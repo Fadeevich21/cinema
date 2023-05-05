@@ -17,6 +17,7 @@ import com.example.cinema.ui.decorations.MovieDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -28,6 +29,7 @@ class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view: View = binding.root
 

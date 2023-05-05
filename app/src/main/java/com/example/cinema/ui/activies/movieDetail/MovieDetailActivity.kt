@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinema.App
 import com.example.cinema.databinding.ActivityDetailMovieBinding
@@ -37,7 +38,6 @@ class MovieDetailActivity : AppCompatActivity() {
         binding.movieDetailGenres.addItemDecoration(decoration)
 
         viewModel.movieLive.observe(this) { movie ->
-            // TODO: это костыль! Заменить
             viewModel.checkBoughtMovieByUser(user = App.user!!, movie = viewModel.movieLive.value as Movie)
 
             binding.movieDetailName.text = movie.name
@@ -50,6 +50,8 @@ class MovieDetailActivity : AppCompatActivity() {
                 intent.data = Uri.parse(movie.trailerUrl)
                 startActivity(intent)
             }
+            binding.movieDetailTrailer.isEnabled = movie.trailerUrl?.isNotEmpty() ?: false
+            binding.movieDetailBuy.isVisible = movie.contentUrl.isNotEmpty()
             binding.movieDetailBuy.setOnClickListener {
                 viewModel.buyMovie(user = App.user!!, movie = viewModel.movieLive.value as Movie)
             }

@@ -8,14 +8,20 @@
     <fragment
         android:id="@+id/action_home"
         android:name="com.example.cinema.ui.fragments.home.HomeFragment"
-        android:label="Home"
+        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
     </fragment>
 
     <fragment
         android:id="@+id/action_shop"
         android:name="com.example.cinema.ui.fragments.shop.ShopFragment"
-        android:label="Shop"
+        android:label="@string/menu_shop"
         tools:layout="@layout/fragment_shop"/>
+
+    <fragment
+        android:id="@+id/action_settings"
+        android:name="com.example.cinema.ui.fragments.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings"/>
 
 </navigation>
