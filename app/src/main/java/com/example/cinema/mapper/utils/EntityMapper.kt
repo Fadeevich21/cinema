@@ -1,4 +1,4 @@
-package com.example.cinema.utils
+package com.example.cinema.mapper.utils
 
 interface EntityMapper<Entity, DomainModel> {
 

@@ -12,42 +12,37 @@ val appModule = module {
 
     viewModel<HomeViewModel> {
         HomeViewModel(
-            getAllMoviesUseCase = get(),
-            filterMoviesByNameUseCase = get(),
-            checkUserHasPrivilegeUseCase = get(),
-            getPrivilegeByNameUseCase = get()
+            movieUseCases = get(),
+            userUseCases = get(),
+            privilegeUseCases = get()
         )
     }
 
     viewModel<ShopViewModel> {
         ShopViewModel(
-            getAllMoviesUseCase = get(),
-            getBoughtMoviesByUserUseCase = get()
+            movieUseCases = get()
         )
     }
 
     viewModel<LoginViewModel> {
         LoginViewModel(
-            loginUserUseCase = get(),
-            registerUserUseCase = get()
+            userUseCases = get()
         )
     }
 
     viewModel<MovieDetailViewModel> {
         MovieDetailViewModel(
-            getMovieByIdUseCase = get(),
-            getGenresByMovieIdUseCase = get(),
-            buyMovieUseCase = get(),
-            checkBoughtMovieByUserUseCase = get(),
-            getPrivilegeByNameUseCase = get(),
-            checkUserHasPrivilegeUseCase = get(),
-            deleteMovieUseCase = get()
+            movieUseCases = get(),
+            genreUseCases = get(),
+            privilegeUseCases = get(),
+            userUseCases = get(),
+            fileUseCases = get()
         )
     }
 
     viewModel<AddMovieViewModel> {
         AddMovieViewModel(
-            addMovieUseCase = get()
+            movieUseCases = get()
         )
     }
 }

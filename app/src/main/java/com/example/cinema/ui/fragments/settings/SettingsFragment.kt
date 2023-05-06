@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.cinema.App
-import com.example.cinema.R
 import com.example.cinema.databinding.FragmentSettingsBinding
 import com.example.cinema.ui.activies.login.LoginActivity
-
 
 class SettingsFragment : Fragment() {
 
@@ -21,7 +19,6 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val view = binding.root
 

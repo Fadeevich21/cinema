@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.model.User
-import com.example.cinema.domain.usecase.GetAllMoviesUseCase
-import com.example.cinema.domain.usecase.GetBoughtMoviesByUserUseCase
-import com.example.cinema.ui.fragments.shop.ShopUiState
+import com.example.cinema.domain.usecase.model.MovieUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ShopViewModel(
-    private val getAllMoviesUseCase: GetAllMoviesUseCase,
-    private val getBoughtMoviesByUserUseCase: GetBoughtMoviesByUserUseCase
+    private val movieUseCases: MovieUseCases
 ) : ViewModel() {
 
     private var moviesLiveMutable = MutableLiveData<List<Movie>>()
@@ -29,7 +26,7 @@ class ShopViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.update { it.copy(movies = getAllMoviesUseCase.execute()) }
+            _uiState.update { it.copy(movies = movieUseCases.getAllMoviesUseCase.execute()) }
         }
     }
 
@@ -37,7 +34,7 @@ class ShopViewModel(
         var movies: List<Movie>
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                movies = getBoughtMoviesByUserUseCase.execute(user)
+                movies = movieUseCases.getBoughtMoviesByUserUseCase.execute(user)
             }
             withContext(Dispatchers.Main) {
                 moviesLiveMutable.value = movies

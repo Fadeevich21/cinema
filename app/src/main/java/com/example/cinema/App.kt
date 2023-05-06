@@ -6,6 +6,7 @@ import com.example.cinema.di.daoModule
 import com.example.cinema.di.databaseModule
 import com.example.cinema.di.mapperModule
 import com.example.cinema.di.repositoryModule
+import com.example.cinema.di.storageModule
 import com.example.cinema.di.useCaseModule
 import com.example.cinema.domain.model.User
 import org.koin.android.ext.koin.androidContext
@@ -32,7 +33,8 @@ class App : Application() {
                     useCaseModule,
                     databaseModule,
                     daoModule,
-                    mapperModule
+                    mapperModule,
+                    storageModule
                 )
             )
         }

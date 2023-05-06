@@ -1,4 +1,4 @@
-package com.example.cinema.domain.usecase
+package com.example.cinema.domain.usecase.role
 
 import com.example.cinema.domain.model.Role
 import com.example.cinema.domain.repository.RoleRepository

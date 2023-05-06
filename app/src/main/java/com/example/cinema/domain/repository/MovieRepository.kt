@@ -1,7 +1,9 @@
 package com.example.cinema.domain.repository
 
+import android.net.Uri
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.model.User
+import com.fasterxml.jackson.databind.JsonNode
 
 interface MovieRepository {
 
@@ -15,4 +17,9 @@ interface MovieRepository {
 
     fun addMovie(movie: Movie): Boolean
     fun deleteMovie(movie: Movie): Boolean
+
+    fun getMovieJson(movie: Movie): JsonNode
+
+    fun saveMovieJson(uri: Uri?, movie: Movie)
+    fun saveMovieCsv(uri: Uri?, movie: Movie)
 }

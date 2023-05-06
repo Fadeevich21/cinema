@@ -2,7 +2,7 @@ package com.example.cinema.mapper
 
 import com.example.cinema.data.db.entities.UserEntity
 import com.example.cinema.domain.model.User
-import com.example.cinema.utils.EntityMapper
+import com.example.cinema.mapper.utils.EntityMapper
 
 class UserMapper(private val roleMapper: RoleMapper) : EntityMapper<UserEntity, User> {
 

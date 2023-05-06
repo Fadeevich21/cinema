@@ -2,7 +2,7 @@ package com.example.cinema.mapper
 
 import com.example.cinema.data.db.entities.GenreEntity
 import com.example.cinema.domain.model.Genre
-import com.example.cinema.utils.EntityMapper
+import com.example.cinema.mapper.utils.EntityMapper
 
 class GenreMapper : EntityMapper<GenreEntity, Genre> {
 

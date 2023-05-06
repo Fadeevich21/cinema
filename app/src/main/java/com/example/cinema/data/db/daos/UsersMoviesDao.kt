@@ -30,7 +30,6 @@ class UsersMoviesDao(database: Database) : Dao(database = database) {
         }
         usersMovies.add(userMovie)
 
-        // TODO
         return true
     }
 

@@ -29,7 +29,6 @@ class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view: View = binding.root
 
@@ -61,10 +60,11 @@ class HomeFragment : Fragment(), MovieAdapter.OnItemClickListener {
         }
 
         viewModel.canAddMovieLive.observe(requireActivity()) {
-            if (viewModel.canAddMovieLive.value == true)
+            if (viewModel.canAddMovieLive.value == true) {
                 binding.movieAdd.visibility = View.VISIBLE
-            else
+            } else {
                 binding.movieAdd.visibility = View.GONE
+            }
         }
         viewModel.checkUserCanAddMovie(user = App.user!!)
 

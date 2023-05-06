@@ -1,4 +1,4 @@
-package com.example.cinema.domain.usecase
+package com.example.cinema.domain.usecase.privilege
 
 import com.example.cinema.domain.model.Privilege
 import com.example.cinema.domain.repository.PrivilegeRepository

@@ -18,6 +18,10 @@ class UsersDao(database: Database) : Dao(database = database) {
         return users.find { (it.username eq username) and (it.password eq password) }
     }
 
+    fun findUserByUsername(username: String): UserEntity? {
+        return users.find { (it.username eq username) }
+    }
+
     fun addUser(user: UserEntity) {
         users.add(user)
     }

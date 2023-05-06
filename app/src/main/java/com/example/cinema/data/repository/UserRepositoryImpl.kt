@@ -16,16 +16,17 @@ class UserRepositoryImpl(
             username = username,
             password = password
         )
+
         return userEntity?.let { userMapper.mapFromEntity(it) }
     }
 
     override fun registerUser(username: String, password: String): Boolean {
-        var userEntity = AppDatabase.daos.usersDao.findUserByUsernameAndPassword(
-            username = username,
-            password = password
+        var userEntity = AppDatabase.daos.usersDao.findUserByUsername(
+            username = username
         )
-        if (userEntity != null)
+        if (userEntity != null) {
             return false
+        }
 
         val roleEntity = AppDatabase.daos.rolesDao.getRoleByName("user")
         val user = User(
@@ -37,5 +38,5 @@ class UserRepositoryImpl(
         AppDatabase.daos.usersDao.addUser(userEntity)
 
         return true
-}
+    }
 }

@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.domain.model.Movie
-import com.example.cinema.domain.usecase.AddMovieUseCase
+import com.example.cinema.domain.usecase.model.MovieUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AddMovieViewModel(private val addMovieUseCase: AddMovieUseCase) : ViewModel() {
+class AddMovieViewModel(private val movieUseCases: MovieUseCases) : ViewModel() {
 
     private var isAddedMovieLiveMutable = MutableLiveData<Boolean>()
     var isAddedMovieLive: LiveData<Boolean> = isAddedMovieLiveMutable
@@ -19,7 +19,7 @@ class AddMovieViewModel(private val addMovieUseCase: AddMovieUseCase) : ViewMode
         var isAddedMovie: Boolean
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                isAddedMovie = addMovieUseCase.execute(movie = movie)
+                isAddedMovie = movieUseCases.addMovieUseCase.execute(movie = movie)
             }
             withContext(Dispatchers.Main) {
                 isAddedMovieLiveMutable.value = isAddedMovie

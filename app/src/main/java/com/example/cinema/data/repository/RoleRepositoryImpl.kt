@@ -14,12 +14,14 @@ class RoleRepositoryImpl(
 
     override fun getRoleByName(name: String): Role? {
         val roleEntity = AppDatabase.daos.rolesDao.getRoleByName(name)
+
         return roleEntity?.let { roleMapper.mapFromEntity(it) }
     }
 
     override fun checkRoleHasPrivilege(role: Role, privilege: Privilege?): Boolean {
         val roleEntity = roleMapper.mapToEntity(role)
         val privilegeEntity = privilege?.let { privilegeMapper.mapToEntity(it) }
+
         return AppDatabase.daos.rolesPrivilegesDao.checkRoleHasPrivilege(
             role = roleEntity,
             privilege = privilegeEntity

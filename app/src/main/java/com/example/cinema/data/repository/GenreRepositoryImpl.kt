@@ -8,6 +8,10 @@ import com.example.cinema.mapper.GenreMapper
 class GenreRepositoryImpl(private val genreMapper: GenreMapper) : GenreRepository {
 
     override fun getGenresByMovieId(movieId: Int): List<Genre> {
-        return genreMapper.fromEntityList(AppDatabase.daos.moviesGenresDao.getGenresByMovieId(movieId))
+        return genreMapper.fromEntityList(
+            AppDatabase.daos.moviesGenresDao.getGenresByMovieId(
+                movieId
+            )
+        )
     }
 }

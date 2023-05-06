@@ -7,11 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.model.Privilege
 import com.example.cinema.domain.model.User
-import com.example.cinema.domain.usecase.CheckUserHasPrivilegeUseCase
-import com.example.cinema.domain.usecase.FilterMoviesByNameUseCase
-import com.example.cinema.domain.usecase.GetAllMoviesUseCase
-import com.example.cinema.domain.usecase.GetPrivilegeByNameUseCase
-import com.example.cinema.ui.fragments.home.HomeUiState
+import com.example.cinema.domain.usecase.model.MovieUseCases
+import com.example.cinema.domain.usecase.model.PrivilegeUseCases
+import com.example.cinema.domain.usecase.model.UserUseCases
 import com.example.cinema.utils.Privileges
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,10 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val getAllMoviesUseCase: GetAllMoviesUseCase,
-    private val filterMoviesByNameUseCase: FilterMoviesByNameUseCase,
-    private val checkUserHasPrivilegeUseCase: CheckUserHasPrivilegeUseCase,
-    private val getPrivilegeByNameUseCase: GetPrivilegeByNameUseCase
+    private val movieUseCases: MovieUseCases,
+    private val userUseCases: UserUseCases,
+    private val privilegeUseCases: PrivilegeUseCases
 ) : ViewModel() {
 
     private var moviesLiveMutable = MutableLiveData<List<Movie>>()
@@ -38,7 +35,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.update { it.copy(movies = getAllMoviesUseCase.execute()) }
+            _uiState.update { it.copy(movies = movieUseCases.getAllMoviesUseCase.execute()) }
         }
     }
 
@@ -46,7 +43,7 @@ class HomeViewModel(
         var movies: List<Movie>
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                movies = getAllMoviesUseCase.execute()
+                movies = movieUseCases.getAllMoviesUseCase.execute()
             }
             withContext(Dispatchers.Main) {
                 moviesLiveMutable.value = movies
@@ -59,14 +56,19 @@ class HomeViewModel(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 privilege =
-                    getPrivilegeByNameUseCase.execute(name = Privileges.ADD_MOVIE.privilegeName)
+                    privilegeUseCases.getPrivilegeByNameUseCase.execute(
+                        name = Privileges.ADD_MOVIE.privilegeName
+                    )
             }
             var canAddMovie: Boolean
             withContext(Dispatchers.Main) {
                 viewModelScope.launch {
                     withContext(Dispatchers.IO) {
                         canAddMovie =
-                            checkUserHasPrivilegeUseCase.execute(user = user, privilege = privilege)
+                            userUseCases.checkUserHasPrivilegeUseCase.execute(
+                                user = user,
+                                privilege = privilege
+                            )
                     }
                     withContext(Dispatchers.Main) {
                         canAddMovieLiveMutable.value = canAddMovie
@@ -77,6 +79,7 @@ class HomeViewModel(
     }
 
     fun filter(name: String) {
-        moviesLiveMutable.value = filterMoviesByNameUseCase.execute(_uiState.value.movies, name)
+        moviesLiveMutable.value =
+            movieUseCases.filterMoviesByNameUseCase.execute(_uiState.value.movies, name)
     }
 }

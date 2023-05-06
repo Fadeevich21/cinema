@@ -1,4 +1,4 @@
-package com.example.cinema.domain.usecase
+package com.example.cinema.domain.usecase.movie
 
 import com.example.cinema.domain.model.Movie
 import com.example.cinema.domain.model.User

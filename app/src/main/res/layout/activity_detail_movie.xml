@@ -128,4 +128,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movie_detail_show" />
 
+    <LinearLayout
+        android:id="@+id/movie_detail_saves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_delete">
+
+        <Button
+            android:id="@+id/movie_detail_save_json"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="сохранить JSON" />
+
+        <Button
+            android:id="@+id/movie_detail_save_csv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="сохранить CSV" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

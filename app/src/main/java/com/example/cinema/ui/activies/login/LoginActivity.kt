@@ -38,9 +38,10 @@ class LoginActivity : AppCompatActivity() {
         viewModel.isRegisterLive.observe(this) {
             if (viewModel.isRegisterLive.value == true)
                 Toast.makeText(applicationContext, "Register success", Toast.LENGTH_SHORT).show()
-            else
+            else {
                 Toast.makeText(applicationContext, "Register not success", Toast.LENGTH_SHORT)
                     .show()
+            }
         }
 
         binding.loginButton.setOnClickListener {
@@ -66,14 +67,16 @@ class LoginActivity : AppCompatActivity() {
                 if (text.isEmpty()) {
                     binding.loginButton.isEnabled = false
                     binding.registerButton.isEnabled = false
+
                     return
                 }
 
                 if (text.length in 1..4) {
                     usernameLabel.error = "username is incorrect"
                     usernameLabel.isErrorEnabled = true
-                } else
+                } else {
                     usernameLabel.isErrorEnabled = false
+                }
 
                 binding.loginButton.isEnabled = !usernameLabel.isErrorEnabled
                 binding.registerButton.isEnabled = !usernameLabel.isErrorEnabled

@@ -15,6 +15,7 @@ import com.example.cinema.ui.decorations.MovieDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ShopFragment : Fragment(), MovieAdapter.OnItemClickListener {
+
     private var _binding: FragmentShopBinding? = null
     private val binding get() = _binding!!
 

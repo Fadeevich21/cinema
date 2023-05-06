@@ -10,6 +10,7 @@ import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 
 class MoviesGenresDao(database: Database) : Dao(database) {
+
     private val moviesGenres get() = database.sequenceOf(MoviesGenresTable)
 
     fun getGenresByMovieId(movieId: Int): List<GenreEntity> {

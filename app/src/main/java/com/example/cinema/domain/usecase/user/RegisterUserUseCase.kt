@@ -1,4 +1,4 @@
-package com.example.cinema.domain.usecase
+package com.example.cinema.domain.usecase.user
 
 import com.example.cinema.domain.repository.UserRepository
 

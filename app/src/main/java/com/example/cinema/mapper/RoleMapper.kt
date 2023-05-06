@@ -2,7 +2,7 @@ package com.example.cinema.mapper
 
 import com.example.cinema.data.db.entities.RoleEntity
 import com.example.cinema.domain.model.Role
-import com.example.cinema.utils.EntityMapper
+import com.example.cinema.mapper.utils.EntityMapper
 
 class RoleMapper : EntityMapper<RoleEntity, Role> {
 

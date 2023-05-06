@@ -4,7 +4,7 @@ import org.ktorm.entity.Entity
 
 interface UserMovieEntity : Entity<UserMovieEntity> {
 
-    companion object: Entity.Factory<UserMovieEntity>()
+    companion object : Entity.Factory<UserMovieEntity>()
 
     var id: Int
     var username: UserEntity

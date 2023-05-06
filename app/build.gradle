@@ -49,6 +49,7 @@ dependencies {
 
     // database
     implementation "org.ktorm:ktorm-core:$ktorm_version"
+    implementation "org.ktorm:ktorm-jackson:$ktorm_version"
     implementation "org.ktorm:ktorm-support-postgresql:$ktorm_version"
     implementation "org.postgresql:postgresql:42.2.9"
 
@@ -69,4 +70,7 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     // testing
     implementation "io.insert-koin:koin-test:$koin_version"
+
+    // csv
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.5.3'
 }

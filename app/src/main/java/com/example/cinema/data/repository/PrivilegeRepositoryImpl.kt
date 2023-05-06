@@ -9,6 +9,7 @@ class PrivilegeRepositoryImpl(private val privilegeMapper: PrivilegeMapper) : Pr
 
     override fun getPrivilegeByName(name: String): Privilege? {
         val privilegeEntity = AppDatabase.daos.privilegesDao.getPrivilegeByName(name = name)
+
         return privilegeEntity?.let { privilegeMapper.mapFromEntity(it) }
     }
 }

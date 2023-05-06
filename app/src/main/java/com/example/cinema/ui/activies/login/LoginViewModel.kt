@@ -5,15 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cinema.domain.model.User
-import com.example.cinema.domain.usecase.LoginUserUseCase
-import com.example.cinema.domain.usecase.RegisterUserUseCase
+import com.example.cinema.domain.usecase.model.UserUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LoginViewModel(
-    private val loginUserUseCase: LoginUserUseCase,
-    private val registerUserUseCase: RegisterUserUseCase
+    private val userUseCases: UserUseCases
 ) : ViewModel() {
 
     private var loginUserLiveMutable = MutableLiveData<User?>()
@@ -26,7 +24,7 @@ class LoginViewModel(
         var user: User?
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                user = loginUserUseCase.execute(username, password)
+                user = userUseCases.loginUserUseCase.execute(username, password)
             }
             withContext(Dispatchers.Main) {
                 loginUserLiveMutable.value = user
@@ -38,7 +36,7 @@ class LoginViewModel(
         var isRegister: Boolean
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                isRegister = registerUserUseCase.execute(username, password)
+                isRegister = userUseCases.registerUserUseCase.execute(username, password)
             }
             withContext(Dispatchers.Main) {
                 isRegisterLiveMutable.value = isRegister

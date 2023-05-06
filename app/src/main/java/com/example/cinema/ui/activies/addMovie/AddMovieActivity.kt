@@ -22,8 +22,9 @@ class AddMovieActivity : AppCompatActivity() {
             if (viewModel.isAddedMovieLive.value == true) {
                 Toast.makeText(this, "Movie is added", Toast.LENGTH_SHORT).show()
                 finish()
-            } else
+            } else {
                 Toast.makeText(this, "Movie is not added", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.movieAddButton.setOnClickListener {
@@ -33,14 +34,16 @@ class AddMovieActivity : AppCompatActivity() {
 
             val yearOfReleaseString = binding.movieAddFieldYearOfRelease.text.toString()
             var yearOfRelease = 0
-            if (yearOfReleaseString.isNotEmpty())
+            if (yearOfReleaseString.isNotEmpty()) {
                 yearOfRelease = yearOfReleaseString.toInt()
+            }
             val ageRestrictionString = binding.movieAddFieldAgeRestriction.text.toString()
 
             var ageRestriction = 0
-            if (ageRestrictionString.isNotEmpty())
+            if (ageRestrictionString.isNotEmpty()) {
                 ageRestriction = ageRestrictionString.toInt()
-
+            }
+            
             val trailerUrl = binding.movieAddFieldTrailerUrl.text.toString()
             val contentUrl = binding.movieAddFieldContentUrl.text.toString()
 

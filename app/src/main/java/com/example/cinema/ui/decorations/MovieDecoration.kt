@@ -9,6 +9,7 @@ class MovieDecoration(
     private val left: Int = 0,
     private val right: Int = 0
 ) : RecyclerView.ItemDecoration() {
+
     override fun getItemOffsets(
         outRect: Rect,
         view: View,

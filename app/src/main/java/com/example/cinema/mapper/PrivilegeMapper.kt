@@ -2,7 +2,7 @@ package com.example.cinema.mapper
 
 import com.example.cinema.data.db.entities.PrivilegeEntity
 import com.example.cinema.domain.model.Privilege
-import com.example.cinema.utils.EntityMapper
+import com.example.cinema.mapper.utils.EntityMapper
 
 class PrivilegeMapper : EntityMapper<PrivilegeEntity, Privilege> {
 
@@ -19,5 +19,4 @@ class PrivilegeMapper : EntityMapper<PrivilegeEntity, Privilege> {
             name = domainModel.name
         }
     }
-
 }
